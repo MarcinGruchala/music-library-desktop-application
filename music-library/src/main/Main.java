@@ -6,19 +6,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class Main extends Application {
 
-    Controller controller = new Controller();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("albums_scene.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("albums_scene.fxml")));
         primaryStage.setTitle("Music library");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
 
-        controller.getConnection();
-        controller.showAlbums();
+//        MainControler controller = new MainControler();
+//        controller.initialize();
+//        controller.getConnection();
+//        controller.showAlbums();
     }
 
 

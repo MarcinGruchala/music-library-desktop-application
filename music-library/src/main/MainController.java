@@ -12,27 +12,22 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class MainController implements Initializable {
     private Connection connection;
 
-    @FXML
-    private TableView<Album> tvAlbums;
-    @FXML
-    private TableColumn<Album,String> colAlbumTitle;
-    @FXML
-    private TableColumn<Album, Date> colPublicationDate;
-    @FXML
-    private TableColumn<Album, String> colPerformer;
-    @FXML
-    private TableColumn<Album, Integer> colReview;
+    @FXML private TableView<Album> tvAlbums;
+    @FXML private TableColumn<Album,String> colAlbumTitle;
+    @FXML private TableColumn<Album, Date> colPublicationDate;
+    @FXML private TableColumn<Album, String> colPerformer;
+    @FXML private TableColumn<Album, Integer> colReview;
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-
+        getConnection();
+        showAlbums();
     }
 
     public void getConnection(){
-        //Connection connection;
         try {
             connection = DriverManager.getConnection("jdbc:oracle:thin:@//192.168.0.180:1521/XEPDB1","hr","hr");
             System.out.println("Connected to Oracle database server");
@@ -60,7 +55,6 @@ public class Controller implements Initializable {
                 );
                 albumsList.add(albums);
                 System.out.println(albums.getTitle());
-
             }
 
         }catch (Exception ex){
@@ -72,6 +66,7 @@ public class Controller implements Initializable {
     public void showAlbums(){
         ObservableList<Album> list = getAlbumsList();
         colAlbumTitle.setCellValueFactory(new PropertyValueFactory<Album,String>("title"));
+        colPublicationDate.setCellValueFactory(new PropertyValueFactory<Album,Date>("publicationDate"));
         colPerformer.setCellValueFactory(new PropertyValueFactory<Album,String>("performer"));
         colReview.setCellValueFactory(new PropertyValueFactory<Album,Integer>("review"));
 
