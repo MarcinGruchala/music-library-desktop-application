@@ -18,6 +18,7 @@ public class Main extends Application {
         primaryStage.show();
 
         controller.getConnection();
+        controller.showAlbums();
     }
 
 

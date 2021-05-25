@@ -20,13 +20,13 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView layoutX="46.0" layoutY="60.0" prefHeight="240.0" prefWidth="299.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <TableView fx:id="tvAlbums" layoutX="46.0" layoutY="60.0" prefHeight="240.0" prefWidth="299.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
               <columns>
-                  <TableColumn prefWidth="100" text="Album Title" />
-                  <TableColumn prefWidth="100" text="Publication Date" />
-                  <TableColumn prefWidth="100" text="Performer" />
+                  <TableColumn fx:id="colAlbumTitle" prefWidth="100" text="Album Title" />
+                  <TableColumn fx:id="colPublicationDate" prefWidth="100" text="Publication Date" />
+                  <TableColumn fx:id="colPerformer" prefWidth="100" text="Performer" />
                   <TableColumn prefWidth="100" text="Length" />
-                  <TableColumn prefWidth="100" text="Review" />
+                  <TableColumn fx:id="colReview" prefWidth="100" text="Review" />
               </columns>
             </TableView>
          </children>

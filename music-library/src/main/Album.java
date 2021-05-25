@@ -5,11 +5,11 @@ import java.util.Date;
 public class Album {
     private Integer id;
     private String title;
-    private Date publicationDate;
+    private java.sql.Date publicationDate;
     private String performer;
     private Integer review;
 
-    public Album(Integer id, String title, Date publicationDate, String performer, Integer review) {
+    public Album(Integer id, String title, java.sql.Date publicationDate, String performer, Integer review) {
         this.id = id;
         this.title = title;
         this.publicationDate = publicationDate;
