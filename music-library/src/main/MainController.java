@@ -20,7 +20,6 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    //private Connection connection;
     Stage addAlbumStage = new Stage();
 
     @FXML private TableView<Album> tvAlbums;
@@ -31,18 +30,10 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-//        getConnection();
         showAlbums();
     }
 
-//    public void getConnection(){
-//        try {
-//            connection = DriverManager.getConnection("jdbc:oracle:thin:@//192.168.0.180:1521/XEPDB1","hr","hr");
-//            System.out.println("Connected to Oracle database server");
-//        }catch (Exception ex){
-//            System.out.println("Error: " + ex.getMessage());
-//        }
-//    }
+
 
     public ObservableList<Album> getAlbumsList(){
         ObservableList<Album> albumsList = FXCollections.observableArrayList();
