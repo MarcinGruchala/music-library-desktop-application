@@ -20,7 +20,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    private Connection connection;
+    //private Connection connection;
+    Stage addAlbumStage = new Stage();
 
     @FXML private TableView<Album> tvAlbums;
     @FXML private TableColumn<Album,String> colAlbumTitle;
@@ -30,18 +31,18 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        getConnection();
+//        getConnection();
         showAlbums();
     }
 
-    public void getConnection(){
-        try {
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@//192.168.0.180:1521/XEPDB1","hr","hr");
-            System.out.println("Connected to Oracle database server");
-        }catch (Exception ex){
-            System.out.println("Error: " + ex.getMessage());
-        }
-    }
+//    public void getConnection(){
+//        try {
+//            connection = DriverManager.getConnection("jdbc:oracle:thin:@//192.168.0.180:1521/XEPDB1","hr","hr");
+//            System.out.println("Connected to Oracle database server");
+//        }catch (Exception ex){
+//            System.out.println("Error: " + ex.getMessage());
+//        }
+//    }
 
     public ObservableList<Album> getAlbumsList(){
         ObservableList<Album> albumsList = FXCollections.observableArrayList();
@@ -49,7 +50,7 @@ public class MainController implements Initializable {
         Statement st;
         ResultSet rs;
         try{
-            st = connection.createStatement();
+            st = DatabaseConnector.getConnection().createStatement();
             rs = st.executeQuery(query);
             Album albums;
             while (rs.next()){
@@ -72,19 +73,19 @@ public class MainController implements Initializable {
 
     public void showAlbums(){
         ObservableList<Album> list = getAlbumsList();
-        colAlbumTitle.setCellValueFactory(new PropertyValueFactory<Album,String>("title"));
-        colPublicationDate.setCellValueFactory(new PropertyValueFactory<Album,Date>("publicationDate"));
-        colPerformer.setCellValueFactory(new PropertyValueFactory<Album,String>("performer"));
-        colReview.setCellValueFactory(new PropertyValueFactory<Album,Integer>("review"));
+        colAlbumTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colPublicationDate.setCellValueFactory(new PropertyValueFactory<>("publicationDate"));
+        colPerformer.setCellValueFactory(new PropertyValueFactory<>("performer"));
+        colReview.setCellValueFactory(new PropertyValueFactory<>("review"));
 
         tvAlbums.setItems(list);
     }
 
-    public void addAlbum(ActionEvent actionEvent) throws IOException {
-        Stage addAlbumStage = new Stage();
+    public void addAlbum() throws IOException {
         Pane addAlbumPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("add_album_stage.fxml")));
         addAlbumStage.setScene(new Scene(addAlbumPane,600,400));
         addAlbumStage.show();
+        AddAlbumStageController.addAlbumStage = addAlbumStage;
     }
 
     public void addReview(ActionEvent actionEvent) {
