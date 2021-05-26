@@ -2,14 +2,21 @@ package main;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -71,5 +78,18 @@ public class MainController implements Initializable {
         colReview.setCellValueFactory(new PropertyValueFactory<Album,Integer>("review"));
 
         tvAlbums.setItems(list);
+    }
+
+    public void addAlbum(ActionEvent actionEvent) throws IOException {
+        Stage addAlbumStage = new Stage();
+        Pane addAlbumPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("add_album_stage.fxml")));
+        addAlbumStage.setScene(new Scene(addAlbumPane,600,400));
+        addAlbumStage.show();
+    }
+
+    public void addReview(ActionEvent actionEvent) {
+    }
+
+    public void deleteAlbum(ActionEvent actionEvent) {
     }
 }

@@ -3,11 +3,11 @@ package main;
 import java.util.Date;
 
 public class Album {
-    private Integer id;
-    private String title;
-    private java.sql.Date publicationDate;
-    private String performer;
-    private Integer review;
+    private final Integer id;
+    private final String title;
+    private final java.sql.Date publicationDate;
+    private final String performer;
+    private final Integer review;
 
     public Album(Integer id, String title, java.sql.Date publicationDate, String performer, Integer review) {
         this.id = id;

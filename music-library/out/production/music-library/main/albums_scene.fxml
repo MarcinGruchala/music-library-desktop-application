@@ -11,9 +11,9 @@
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="19.0" layoutY="55.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="162.0" text="Add Album" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="20.0" />
-            <Button layoutX="19.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="162.0" text="Add Review" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="60.0" />
-            <Button layoutX="19.0" layoutY="138.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="162.0" text="Delete Album" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="100.0" />
+            <Button layoutX="19.0" layoutY="55.0" mnemonicParsing="false" onAction="#addAlbum" prefHeight="25.0" prefWidth="162.0" text="Add Album" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="20.0" />
+            <Button layoutX="19.0" layoutY="52.0" mnemonicParsing="false" onAction="#addReview" prefHeight="25.0" prefWidth="162.0" text="Add Review" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="60.0" />
+            <Button layoutX="19.0" layoutY="138.0" mnemonicParsing="false" onAction="#deleteAlbum" prefHeight="25.0" prefWidth="162.0" text="Delete Album" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
    </left>
