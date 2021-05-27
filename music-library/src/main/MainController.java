@@ -31,6 +31,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb){
         showAlbums();
+
     }
 
 
@@ -83,5 +84,9 @@ public class MainController implements Initializable {
     }
 
     public void deleteAlbum(ActionEvent actionEvent) {
+    }
+
+    public void refreshTable(ActionEvent actionEvent) {
+        showAlbums();
     }
 }
