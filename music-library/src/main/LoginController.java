@@ -1,6 +1,9 @@
 package main;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +17,7 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.net.URL;
 
@@ -52,7 +56,8 @@ public class LoginController implements Initializable {
         {
             validateLogin();
         }else{
-            loginMessageLabel.setText("Please enter username and password.");
+            createAccountForm();
+            //loginMessageLabel.setText("Please enter username and password.");
         }
     }
     public void cancelButtonOnAction(ActionEvent event){
@@ -72,12 +77,43 @@ public class LoginController implements Initializable {
                 System.out.print(queryResult.getInt(1));
                 if(queryResult.getInt(1) == 1){
                     loginMessageLabel.setText("LOGIN SUCCESFULL.");
+                    mainControllerForm();
+                    Stage  stage = (Stage) cancelButton.getScene().getWindow();
+                    stage.close();
+
                 } else
                 {
                     loginMessageLabel.setText("Invalid login. Please try again.");
                 }
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
+            ex.getCause();
+        }
+    }
+
+    public void createAccountForm(){
+        try{
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("register.fxml")));
+            Stage registerStage = new Stage();
+            registerStage.setTitle("Music library");
+            registerStage.setScene(new Scene(root, 637, 492));
+            registerStage.show();
+        }catch (Exception ex){
+            ex.printStackTrace();
+            ex.getCause();
+        }
+    }
+
+    public void mainControllerForm()
+    {
+        try{
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("albums_scene.fxml")));
+            Stage registerStage = new Stage();
+            registerStage.setTitle("Music library");
+            registerStage.setScene(new Scene(root, 637, 492));
+            registerStage.show();
+        }catch (Exception ex){
             ex.printStackTrace();
             ex.getCause();
         }

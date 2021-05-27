@@ -16,9 +16,8 @@ public class Main extends Application {
         DatabaseConnector.setConnection();
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
-        //primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setTitle("Music library");
-        primaryStage.setScene(new Scene(root, 520, 400));
+        primaryStage.setScene(new Scene(root, 637, 400));
         primaryStage.show();
 
     }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="492.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.RegisterController">
+   <children>
+      <AnchorPane prefHeight="82.0" prefWidth="637.0" style="-fx-background-color: e96151;">
+         <children>
+            <ImageView fx:id="registerImageView" fitHeight="59.0" fitWidth="79.0" layoutX="37.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/register.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="148.0" layoutY="27.0" prefHeight="29.0" prefWidth="144.0" text="User Registration" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="151.0" layoutY="118.0" text="Firstname">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="firstnameTextField" layoutX="151.0" layoutY="143.0" prefHeight="25.0" prefWidth="336.0" promptText="Firstname" />
+      <Label layoutX="151.0" layoutY="178.0" text="Lastname">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="lastnameTextField" layoutX="151.0" layoutY="203.0" prefHeight="25.0" prefWidth="336.0" promptText="Lastname" />
+      <Label layoutX="151.0" layoutY="238.0" text="Username">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="usernameTextField" layoutX="151.0" layoutY="263.0" prefHeight="25.0" prefWidth="336.0" promptText="Username" />
+      <Label layoutX="151.0" layoutY="294.0" text="Password">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="setPasswordField" layoutX="151.0" layoutY="319.0" prefHeight="25.0" prefWidth="336.0" promptText="Password" />
+      <Label layoutX="151.0" layoutY="344.0" text="Confirm Password">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="confirmPasswordField" layoutX="151.0" layoutY="369.0" prefHeight="25.0" prefWidth="336.0" promptText="Confirm Password" />
+      <Button fx:id="registerButton" layoutX="151.0" layoutY="410.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="27.0" prefWidth="336.0" style="-fx-background-color: e96151;" text="Register" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="closeButton" layoutX="151.0" layoutY="451.0" mnemonicParsing="false" onAction="#closeButtononAction" prefHeight="27.0" prefWidth="336.0" style="-fx-background-color: e96151;" text="Close" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Label fx:id="registrationMessageLabel" alignment="CENTER" layoutX="-1.0" layoutY="89.0" prefHeight="17.0" prefWidth="637.0" textFill="#3293c3">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="confirmPasswordLabel" alignment="CENTER" layoutX="151.0" layoutY="344.0" prefHeight="19.0" prefWidth="431.0" textFill="#da1305">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
