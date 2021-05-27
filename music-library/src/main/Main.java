@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.Objects;
 
@@ -14,9 +15,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         DatabaseConnector.setConnection();
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("albums_scene.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+        //primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setTitle("Music library");
-        primaryStage.setScene(new Scene(root, 800, 500));
+        primaryStage.setScene(new Scene(root, 520, 400));
         primaryStage.show();
 
     }
