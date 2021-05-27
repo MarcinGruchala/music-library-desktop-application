@@ -1,12 +1,13 @@
 package main;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.sql.*;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class AddAlbumStageController {
 
@@ -16,16 +17,14 @@ public class AddAlbumStageController {
     public TextField tfReview;
     public Button btnCancel;
     public TextField tfTitle;
+    public Button btnAdd;
 
 
-    public void confirmAdd(ActionEvent actionEvent)  {
+    public void confirmAdd()  {
         String title = tfTitle.getText();
         String date = tfPublicationDate.getText();
         String performer = tfPerformer.getText();
-        Integer review =  Integer.parseInt(tfReview.getText());
-//        String query = "INSERT INTO Albums VALUES ("
-//                + getNewId() + "," + title + ", TO_DATE(" + date
-//                + ", 'dd-mm-yyyy'), " + performer + "," + review + ");";
+        int review =  Integer.parseInt(tfReview.getText());
         String query = "INSERT INTO Albums VALUES(?,?,?,?,?)";
         try {
             PreparedStatement ps =  DatabaseConnector.getConnection().prepareStatement(query);
@@ -43,7 +42,7 @@ public class AddAlbumStageController {
 
     }
 
-    public void cancel(ActionEvent actionEvent) {
+    public void cancel() {
         addAlbumStage.close();
     }
 
