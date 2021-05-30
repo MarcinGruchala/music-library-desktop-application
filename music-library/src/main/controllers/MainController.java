@@ -11,9 +11,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import main.Album;
-import main.DatabaseConnector;
-import main.controllers.AddAlbumStageController;
+import main.model.Album;
+import main.model.DatabaseConnector;
 
 import java.io.IOException;
 import java.net.URL;

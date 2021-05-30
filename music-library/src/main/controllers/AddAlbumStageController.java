@@ -3,7 +3,7 @@ package main.controllers;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import main.DatabaseConnector;
+import main.model.DatabaseConnector;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;

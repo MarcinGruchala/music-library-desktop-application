@@ -11,9 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
-import main.DatabaseConnector;
+import main.model.DatabaseConnector;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
