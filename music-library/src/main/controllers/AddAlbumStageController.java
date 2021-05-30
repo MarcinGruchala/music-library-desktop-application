@@ -1,8 +1,9 @@
-package main;
+package main.controllers;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.model.DatabaseConnector;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,7 +12,7 @@ import java.sql.Statement;
 
 public class AddAlbumStageController {
 
-    static Stage addAlbumStage = new Stage();
+    static public Stage addAlbumStage = new Stage();
     public TextField tfPublicationDate;
     public TextField tfPerformer;
     public TextField tfReview;

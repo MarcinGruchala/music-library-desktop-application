@@ -1,4 +1,4 @@
-package main;
+package main.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,10 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import main.model.Album;
+import main.model.DatabaseConnector;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +25,7 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     Stage addAlbumStage = new Stage();
+    Stage albumDetailsStage =  new Stage();
 
     @FXML private TableView<Album> tvAlbums;
     @FXML private TableColumn<Album,String> colAlbumTitle;
@@ -32,6 +36,22 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb){
         showAlbums();
+
+        tvAlbums.setRowFactory( tv -> {
+            TableRow<Album> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Album rowData = row.getItem();
+                    System.out.println(rowData);
+                    try {
+                        openAlbumDetailsStage(rowData.getId());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row ;
+        });
 
     }
 
@@ -55,9 +75,7 @@ public class MainController implements Initializable {
                         rs.getInt(5)
                 );
                 albumsList.add(albums);
-                System.out.println(albums.getTitle());
             }
-
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -70,12 +88,11 @@ public class MainController implements Initializable {
         colPublicationDate.setCellValueFactory(new PropertyValueFactory<>("publicationDate"));
         colPerformer.setCellValueFactory(new PropertyValueFactory<>("performer"));
         colReview.setCellValueFactory(new PropertyValueFactory<>("review"));
-
         tvAlbums.setItems(list);
     }
 
     public void addAlbum() throws IOException {
-        Pane addAlbumPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("add_album_stage.fxml")));
+        Pane addAlbumPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../scenes/add_album_stage.fxml")));
         addAlbumStage.setScene(new Scene(addAlbumPane,600,400));
         addAlbumStage.show();
         AddAlbumStageController.addAlbumStage = addAlbumStage;
@@ -89,5 +106,13 @@ public class MainController implements Initializable {
 
     public void refreshTable() {
         showAlbums();
+    }
+
+    private void openAlbumDetailsStage(Integer albumId) throws IOException {
+        AlbumDetailsStage.albumId = albumId;
+        Pane addAlbumPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../scenes/album_details_stage.fxml")));
+        albumDetailsStage.setScene(new Scene(addAlbumPane,600,400));
+        albumDetailsStage.show();
+        AlbumDetailsStage.stage = albumDetailsStage;
     }
 }

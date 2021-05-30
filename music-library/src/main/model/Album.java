@@ -1,4 +1,4 @@
-package main;
+package main.model;
 
 import java.util.Date;
 
@@ -15,6 +15,17 @@ public class Album {
         this.publicationDate = publicationDate;
         this.performer = performer;
         this.review = review;
+    }
+
+    @Override
+    public String toString() {
+        return "Album{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", publicationDate=" + publicationDate +
+                ", performer='" + performer + '\'' +
+                ", review=" + review +
+                '}';
     }
 
     public Integer getId() {
