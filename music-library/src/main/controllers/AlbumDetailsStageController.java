@@ -99,4 +99,8 @@ public class AlbumDetailsStageController implements Initializable {
         addSongStage.show();
         AddSongStageController.addSongStage = addSongStage;
     }
+
+    public void refreshTable() {
+        showSongs();
+    }
 }
