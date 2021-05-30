@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     Stage addAlbumStage = new Stage();
+    Stage albumDetailsStage =  new Stage();
 
     @FXML private TableView<Album> tvAlbums;
     @FXML private TableColumn<Album,String> colAlbumTitle;
@@ -42,6 +43,11 @@ public class MainController implements Initializable {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Album rowData = row.getItem();
                     System.out.println(rowData);
+                    try {
+                        openAlbumDetailsStage(rowData.getId());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
             return row ;
@@ -69,9 +75,7 @@ public class MainController implements Initializable {
                         rs.getInt(5)
                 );
                 albumsList.add(albums);
-                System.out.println(albums.getTitle());
             }
-
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -103,5 +107,13 @@ public class MainController implements Initializable {
 
     public void refreshTable() {
         showAlbums();
+    }
+
+    private void openAlbumDetailsStage(Integer albumId) throws IOException {
+        Pane addAlbumPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../scenes/album_details_stage.fxml")));
+        albumDetailsStage.setScene(new Scene(addAlbumPane,600,400));
+        albumDetailsStage.show();
+        AlbumDetailsStage.stage = albumDetailsStage;
+        AlbumDetailsStage.albumId = albumId;
     }
 }
