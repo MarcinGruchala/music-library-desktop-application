@@ -109,10 +109,10 @@ public class MainController implements Initializable {
     }
 
     private void openAlbumDetailsStage(Integer albumId) throws IOException {
-        AlbumDetailsStage.albumId = albumId;
+        AlbumDetailsStageController.albumId = albumId;
         Pane addAlbumPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../scenes/album_details_stage.fxml")));
         albumDetailsStage.setScene(new Scene(addAlbumPane,600,400));
         albumDetailsStage.show();
-        AlbumDetailsStage.stage = albumDetailsStage;
+        AlbumDetailsStageController.stage = albumDetailsStage;
     }
 }
