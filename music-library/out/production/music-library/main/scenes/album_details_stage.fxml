@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AlbumDetailsStage">
    <top>
       <AnchorPane prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </top>
@@ -23,10 +23,14 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView layoutX="180.0" layoutY="80.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <TableView fx:id="tvSongs" layoutX="180.0" layoutY="80.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn fx:id="colSongTitle" prefWidth="75.0" text="Song Title" />
+                  <TableColumn fx:id="colAlbumTitle" prefWidth="75.0" text="Album Title" />
+                  <TableColumn fx:id="colNumberInAlbum" prefWidth="75.0" text="Number In Album" />
+                  <TableColumn fx:id="colGenre" prefWidth="75.0" text="Genre" />
+                  <TableColumn fx:id="colSongDuration" prefWidth="75.0" text="Duration" />
+
               </columns>
             </TableView>
          </children>
