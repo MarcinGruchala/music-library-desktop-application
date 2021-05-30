@@ -15,13 +15,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         DatabaseConnector.setConnection();
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("scenes/login.fxml")));
         primaryStage.setTitle("Music library");
         primaryStage.setScene(new Scene(root, 637, 400));
         primaryStage.show();
-
-
-
     }
 
     public static void main(String[] args) {

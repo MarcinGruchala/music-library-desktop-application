@@ -94,7 +94,7 @@ public class LoginController implements Initializable {
 
     public void createAccountForm(){
         try{
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("register.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("scenes/register.fxml")));
             Stage registerStage = new Stage();
             registerStage.setTitle("Music library");
             registerStage.setScene(new Scene(root, 637, 492));
@@ -108,7 +108,7 @@ public class LoginController implements Initializable {
     public void mainControllerForm()
     {
         try{
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("albums_scene.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("scenes/albums_scene.fxml")));
             Stage registerStage = new Stage();
             registerStage.setTitle("Music library");
             registerStage.setScene(new Scene(root, 637, 492));

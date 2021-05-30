@@ -75,7 +75,7 @@ public class MainController implements Initializable {
     }
 
     public void addAlbum() throws IOException {
-        Pane addAlbumPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("add_album_stage.fxml")));
+        Pane addAlbumPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("scenes/add_album_stage.fxml")));
         addAlbumStage.setScene(new Scene(addAlbumPane,600,400));
         addAlbumStage.show();
         AddAlbumStageController.addAlbumStage = addAlbumStage;
