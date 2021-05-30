@@ -18,18 +18,24 @@
    </right>
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="btnAdd" layoutX="378.0" layoutY="292.0" mnemonicParsing="false" onAction="#confirmAdd" prefHeight="25.0" prefWidth="100.0" text="Add" AnchorPane.rightAnchor="150.0" />
-            <TextField fx:id="tfTitle" layoutX="130.0" layoutY="41.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="40.0" />
-            <Label layoutX="45.0" layoutY="44.0" text="Title" />
-            <Label layoutX="45.0" layoutY="84.0" text="Publication date" />
-            <TextField fx:id="tfPublicationDate" layoutX="130.0" layoutY="78.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="80.0" />
-            <Label layoutX="45.0" layoutY="124.0" text="Performer" />
-            <Label layoutX="45.0" layoutY="164.0" text="Review" />
-            <TextField fx:id="tfPerformer" layoutX="130.0" layoutY="122.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="120.0" />
-            <TextField fx:id="tfReview" layoutX="131.0" layoutY="168.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="160.0" />
-            <Button fx:id="btnCancel" layoutX="154.0" layoutY="292.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="100.0" text="Cancel" AnchorPane.leftAnchor="150.0" />
-         </children>
+         <Button fx:id="btnAdd" layoutX="378.0" layoutY="292.0" mnemonicParsing="false" onAction="#confirmAdd"
+                 prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #e96151;" text="Add" textFill="WHITE"
+                 AnchorPane.rightAnchor="150.0"/>
+         <TextField fx:id="tfTitle" layoutX="130.0" layoutY="41.0" AnchorPane.leftAnchor="160.0"
+                    AnchorPane.topAnchor="40.0"/>
+         <Label layoutX="45.0" layoutY="44.0" text="Title"/>
+         <Label layoutX="45.0" layoutY="84.0" text="Publication date"/>
+         <TextField fx:id="tfPublicationDate" layoutX="130.0" layoutY="78.0" AnchorPane.leftAnchor="160.0"
+                    AnchorPane.topAnchor="80.0"/>
+         <Label layoutX="45.0" layoutY="124.0" text="Performer"/>
+         <Label layoutX="45.0" layoutY="164.0" text="Review"/>
+         <TextField fx:id="tfPerformer" layoutX="130.0" layoutY="122.0" AnchorPane.leftAnchor="160.0"
+                    AnchorPane.topAnchor="120.0"/>
+         <TextField fx:id="tfReview" layoutX="131.0" layoutY="168.0" AnchorPane.leftAnchor="160.0"
+                    AnchorPane.topAnchor="160.0"/>
+         <Button fx:id="btnCancel" layoutX="154.0" layoutY="292.0" mnemonicParsing="false" onAction="#cancel"
+                 prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #e96151;" text="Cancel"
+                 textFill="WHITE" AnchorPane.leftAnchor="150.0"/>
       </AnchorPane>
    </center>
    <bottom>

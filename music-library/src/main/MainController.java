@@ -2,7 +2,6 @@ package main;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,12 +14,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    //private Connection connection;
     Stage addAlbumStage = new Stage();
 
     @FXML private TableView<Album> tvAlbums;
@@ -31,18 +31,11 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-//        getConnection();
         showAlbums();
+
     }
 
-//    public void getConnection(){
-//        try {
-//            connection = DriverManager.getConnection("jdbc:oracle:thin:@//192.168.0.180:1521/XEPDB1","hr","hr");
-//            System.out.println("Connected to Oracle database server");
-//        }catch (Exception ex){
-//            System.out.println("Error: " + ex.getMessage());
-//        }
-//    }
+
 
     public ObservableList<Album> getAlbumsList(){
         ObservableList<Album> albumsList = FXCollections.observableArrayList();
@@ -88,9 +81,13 @@ public class MainController implements Initializable {
         AddAlbumStageController.addAlbumStage = addAlbumStage;
     }
 
-    public void addReview(ActionEvent actionEvent) {
+    public void addReview() {
     }
 
-    public void deleteAlbum(ActionEvent actionEvent) {
+    public void deleteAlbum() {
+    }
+
+    public void refreshTable() {
+        showAlbums();
     }
 }
