@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class AlbumDetailsStage implements Initializable {
     static public Stage stage = new Stage();
-    static public String albumName = "";
+    static public Integer albumId = 0;
     public TableColumn<Song, String> colGenre;
     public TableColumn<Song, String> colSongTitle;
     public TableView<Song> tvSongs;
@@ -27,24 +27,25 @@ public class AlbumDetailsStage implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Album id "+albumName);
+        System.out.println("Album id "+albumId);
         showSongs();
     }
 
     public  ObservableList<Song> getSongsList(){
         ObservableList<Song> songsList = FXCollections.observableArrayList();
-        String query = "SELECT * FROM songs WHERE albumtitle =  '" + albumName  + "' " ;
+        String query = "SELECT * FROM songs WHERE albumId =  " + albumId  + " " ;
         Statement st;
         ResultSet rs;
         try {
             st = DatabaseConnector.getConnection().createStatement();
             rs = st.executeQuery(query);
             Song song;
+            System.out.println(getAlbumTitle(albumId));
             while (rs.next()){
                 song = new Song(
                         rs.getInt(1),
                         rs.getString(2),
-                        rs.getString(3),
+                        getAlbumTitle(albumId),
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getInt(6)
@@ -56,6 +57,22 @@ public class AlbumDetailsStage implements Initializable {
         }
         return songsList;
 
+    }
+
+    private String getAlbumTitle(Integer albumId){
+        String albumTitle = "";
+        String query = "SELECT albumtitle FROM albums WHERE albumId =  " + albumId  + " " ;
+        Statement st;
+        ResultSet rs;
+        try {
+            st = DatabaseConnector.getConnection().createStatement();
+            rs = st.executeQuery(query);
+            rs.next();
+            albumTitle = rs.getString(1);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return albumTitle;
     }
 
     private void showSongs(){

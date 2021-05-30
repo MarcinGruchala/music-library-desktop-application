@@ -44,7 +44,7 @@ public class MainController implements Initializable {
                     Album rowData = row.getItem();
                     System.out.println(rowData);
                     try {
-                        openAlbumDetailsStage(rowData.getTitle());
+                        openAlbumDetailsStage(rowData.getId());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -88,7 +88,6 @@ public class MainController implements Initializable {
         colPublicationDate.setCellValueFactory(new PropertyValueFactory<>("publicationDate"));
         colPerformer.setCellValueFactory(new PropertyValueFactory<>("performer"));
         colReview.setCellValueFactory(new PropertyValueFactory<>("review"));
-
         tvAlbums.setItems(list);
     }
 
@@ -109,8 +108,8 @@ public class MainController implements Initializable {
         showAlbums();
     }
 
-    private void openAlbumDetailsStage(String albumName) throws IOException {
-        AlbumDetailsStage.albumName = albumName;
+    private void openAlbumDetailsStage(Integer albumId) throws IOException {
+        AlbumDetailsStage.albumId = albumId;
         Pane addAlbumPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../scenes/album_details_stage.fxml")));
         albumDetailsStage.setScene(new Scene(addAlbumPane,600,400));
         albumDetailsStage.show();
