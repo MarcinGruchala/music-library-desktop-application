@@ -1,4 +1,4 @@
-package main;
+package main.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +11,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import main.Album;
+import main.DatabaseConnector;
+import main.controllers.AddAlbumStageController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -75,7 +78,7 @@ public class MainController implements Initializable {
     }
 
     public void addAlbum() throws IOException {
-        Pane addAlbumPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("scenes/add_album_stage.fxml")));
+        Pane addAlbumPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../scenes/add_album_stage.fxml")));
         addAlbumStage.setScene(new Scene(addAlbumPane,600,400));
         addAlbumStage.show();
         AddAlbumStageController.addAlbumStage = addAlbumStage;

@@ -1,4 +1,4 @@
-package main;
+package main.controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import main.DatabaseConnector;
 
 
 import java.io.File;
