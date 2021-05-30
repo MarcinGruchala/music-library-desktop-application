@@ -17,6 +17,17 @@ public class Album {
         this.review = review;
     }
 
+    @Override
+    public String toString() {
+        return "Album{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", publicationDate=" + publicationDate +
+                ", performer='" + performer + '\'' +
+                ", review=" + review +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

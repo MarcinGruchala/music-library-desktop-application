@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
@@ -34,6 +35,17 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb){
         showAlbums();
+
+        tvAlbums.setRowFactory( tv -> {
+            TableRow<Album> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Album rowData = row.getItem();
+                    System.out.println(rowData);
+                }
+            });
+            return row ;
+        });
 
     }
 
