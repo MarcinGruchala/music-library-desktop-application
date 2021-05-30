@@ -56,10 +56,14 @@ public class LoginController implements Initializable {
         {
             validateLogin();
         }else{
-            createAccountForm();
-            //loginMessageLabel.setText("Please enter username and password.");
+            loginMessageLabel.setText("Please enter username and password.");
         }
     }
+
+    public void registerButtonOnAction(ActionEvent actionEvent) {
+        createAccountForm();
+    }
+
     public void cancelButtonOnAction(ActionEvent event){
         Stage  stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
@@ -118,5 +122,7 @@ public class LoginController implements Initializable {
             ex.getCause();
         }
     }
+
+
 }
 

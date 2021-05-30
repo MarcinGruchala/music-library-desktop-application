@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="492.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.RegisterController">
+<AnchorPane prefHeight="492.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.RegisterController">
    <children>
       <AnchorPane prefHeight="82.0" prefWidth="637.0" style="-fx-background-color: e96151;">
          <children>
             <ImageView fx:id="registerImageView" fitHeight="59.0" fitWidth="79.0" layoutX="37.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Images/register.png" />
+                  <Image url="@../../../Images/register.png" />
                </image>
             </ImageView>
             <Label layoutX="148.0" layoutY="27.0" prefHeight="29.0" prefWidth="144.0" text="User Registration" textFill="WHITE">
