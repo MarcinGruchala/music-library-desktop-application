@@ -24,6 +24,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -45,6 +46,7 @@ public class MainController implements Initializable {
 //    private ObservableList<Album> list;
     @Override
     public void initialize(URL url, ResourceBundle rb){
+        calculateReviews();
         showAlbums();
         setUserName();
         searchListener();
@@ -181,8 +183,50 @@ public class MainController implements Initializable {
         }
     }
 
+    private void calculateReviews(){
+        albumsList = getAlbumsList();
+        albumsList.forEach( (album) ->{
+            String query = "SELECT rating FROM reviews WHERE albumid = " + album.getId();
+            Statement st;
+            ResultSet rs;
+            try{
+                st = DatabaseConnector.getConnection().createStatement();
+                rs = st.executeQuery(query);
+                ArrayList<Integer> reviewScores = new ArrayList<>();
+                while (rs.next()){
+                    System.out.println(rs.getInt(1));
+                    reviewScores.add(rs.getInt(1));
+                }
+                System.out.println(reviewScores);
+                if (reviewScores.size() != 0){
+                    Integer finalReviewScore = 0;
+                    for (Integer reviewScore: reviewScores) {
+                        finalReviewScore+=reviewScore;
+                    }
+                    finalReviewScore =  finalReviewScore / reviewScores.size();
+                    System.out.println(album.getTitle() + "Final review" + finalReviewScore);
+                    updateAlbumReview(album.getId(),finalReviewScore);
+                }
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+        });
+    }
+
     public void refreshTable() {
+        calculateReviews();
         showAlbums();
+    }
+
+    private void updateAlbumReview(Integer albumId ,Integer newScore){
+        String query = "UPDATE albums SET review =" + newScore + " WHERE albumid = " + albumId;
+        Statement st;
+        try{
+            st = DatabaseConnector.getConnection().createStatement();
+            st.executeQuery(query);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     private void openAlbumDetailsStage(Integer albumId) throws IOException {
@@ -192,6 +236,7 @@ public class MainController implements Initializable {
         albumDetailsStage.show();
         AlbumDetailsStageController.stage = albumDetailsStage;
     }
+
     public void setUserName(){
         String query = "SELECT FIRSTNAME, LASTNAME FROM USER_ACCOUNTS WHERE USERNAME='" + userNickName + "'";
         Connection connectDB = DatabaseConnector.getConnection();
