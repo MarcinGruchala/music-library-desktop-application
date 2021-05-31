@@ -2,6 +2,8 @@ package main.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import main.model.Album;
 import main.model.DatabaseConnector;
 import main.model.Song;
 
@@ -20,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -34,11 +38,13 @@ public class AlbumDetailsStageController implements Initializable {
     public TableColumn<Song, String> colAlbumTitle;
     public TableColumn<Song, Integer> colNumberInAlbum;
     public TableColumn<Song, Integer> colSongDuration;
-
+    public TextField searchTextField;
+    private ObservableList<Song> songList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Album id "+albumId);
         showSongs();
+        searchListener();
     }
 
     public  ObservableList<Song> getSongsList(){
@@ -86,13 +92,14 @@ public class AlbumDetailsStageController implements Initializable {
     }
 
     private void showSongs(){
-        ObservableList<Song> songList = getSongsList();
+        songList = getSongsList();
         colSongTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colAlbumTitle.setCellValueFactory(new PropertyValueFactory<>("albumTitle"));
         colNumberInAlbum.setCellValueFactory(new PropertyValueFactory<>("numberInAlbum"));
         colGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         colSongDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         tvSongs.setItems(songList);
+        searchListener();
     }
 
     public void addSong() throws IOException {
@@ -106,6 +113,7 @@ public class AlbumDetailsStageController implements Initializable {
         showSongs();
     }
 
+
     public void deleteSong() {
         Integer deletedSongId = tvSongs.getSelectionModel().getSelectedItem().getId();
         String query = "DELETE FROM songs WHERE songid = " + deletedSongId ;
@@ -117,5 +125,35 @@ public class AlbumDetailsStageController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
+      
+    public void searchListener(){
+        FilteredList<Song> filteredData = new FilteredList<>(songList, b-> true);
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(song -> {
+                // if filter is empty, display all albums
+                if(newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase(Locale.ROOT);
+                if(song.getAlbumTitle().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1)
+                {
+                    return true;
+                }else if (song.getTitle().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1){
+                    return true;
+                }else if(song.getGenre().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1){
+                    return true;
+                }else if(song.getNumberInAlbum().toString().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                }else{
+                    return false;
+                }
+            });
+        });
+        //Wrap the filtered list in a sortedlist
+        SortedList<Song> sortedSongs = new SortedList<>(filteredData);
+        //Bind the sorted list comparator to the TableView comparator.
+        sortedSongs.comparatorProperty().bind(tvSongs.comparatorProperty());
+        // Add sorted and filtered data to the table
+        tvSongs.setItems(sortedSongs);
     }
 }

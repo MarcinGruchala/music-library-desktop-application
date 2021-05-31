@@ -5,8 +5,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AddAlbumStageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AddAlbumStageController">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="20.0" BorderPane.alignment="CENTER" />
    </left>
@@ -18,14 +19,23 @@
    </right>
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <Button fx:id="btnAdd" layoutX="378.0" layoutY="292.0" mnemonicParsing="false" onAction="#confirmAdd" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #e96151;" text="Add" textFill="WHITE" AnchorPane.rightAnchor="150.0" />
-         <TextField fx:id="tfTitle" layoutX="130.0" layoutY="41.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="40.0" />
-         <Label layoutX="45.0" layoutY="44.0" text="Title" />
-         <Label layoutX="45.0" layoutY="84.0" text="Publication date" />
-         <TextField fx:id="tfPublicationDate" layoutX="130.0" layoutY="78.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="80.0" />
-         <Label layoutX="45.0" layoutY="124.0" text="Performer" />
-         <TextField fx:id="tfPerformer" layoutX="130.0" layoutY="122.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="120.0" />
-         <Button fx:id="btnCancel" layoutX="154.0" layoutY="292.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #e96151;" text="Cancel" textFill="WHITE" AnchorPane.leftAnchor="150.0" />
+         <Button fx:id="btnAdd" layoutX="122.0" layoutY="217.0" mnemonicParsing="false" onAction="#confirmAdd" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #e96151;" text="Add" textFill="WHITE" AnchorPane.rightAnchor="273.0" />
+         <TextField fx:id="tfTitle" layoutX="207.0" layoutY="34.0" prefHeight="25.0" prefWidth="221.0" AnchorPane.leftAnchor="207.0" AnchorPane.topAnchor="34.0" />
+         <Label layoutX="92.0" layoutY="38.0" prefHeight="19.0" prefWidth="94.0" text="Title">
+            <font>
+               <Font size="13.0" />
+            </font></Label>
+         <Label layoutX="92.0" layoutY="94.0" prefHeight="19.0" prefWidth="101.0" text="Publication date">
+            <font>
+               <Font size="13.0" />
+            </font></Label>
+         <TextField fx:id="tfPublicationDate" layoutX="207.0" layoutY="90.0" prefHeight="25.0" prefWidth="222.0" promptText="2000-02-21" AnchorPane.leftAnchor="207.0" AnchorPane.topAnchor="90.0" />
+         <Label layoutX="92.0" layoutY="134.0" prefHeight="19.0" prefWidth="92.0" text="Performer">
+            <font>
+               <Font size="13.0" />
+            </font></Label>
+         <TextField fx:id="tfPerformer" layoutX="207.0" layoutY="130.0" prefHeight="25.0" prefWidth="221.0" AnchorPane.leftAnchor="207.0" AnchorPane.topAnchor="130.0" />
+         <Button fx:id="btnCancel" layoutX="284.0" layoutY="217.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #e96151;" text="Cancel" textFill="WHITE" AnchorPane.leftAnchor="284.0" />
       </AnchorPane>
    </center>
    <bottom>
