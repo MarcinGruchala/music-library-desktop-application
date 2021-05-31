@@ -7,16 +7,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.model.DatabaseConnector;
 
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 
 public class AddReviewStageController implements Initializable {
@@ -33,7 +31,7 @@ public class AddReviewStageController implements Initializable {
     @FXML
     private Button addButton;
     @FXML
-    private TextField descriptionTextField;
+    private TextArea descriptionTextArea;
     @FXML
     private Label infoLabel;
     @FXML
@@ -45,7 +43,7 @@ public class AddReviewStageController implements Initializable {
     }
 
     public void addButtonOnAction(ActionEvent actionEvent) {
-        if(descriptionTextField.getText().toString() == "")
+        if(descriptionTextArea.getText().toString() == "")
         {
             errorLabel.setText("You must fill the Description box!");
         }else
@@ -56,7 +54,7 @@ public class AddReviewStageController implements Initializable {
             }else
             {
                 String query = "INSERT INTO reviews(reviewcontent,userid,rating,albumid) VALUES('";
-                String query2 = descriptionTextField.getText() + "'," + userID +"," +  ratingChoiceBox.getValue() + "," +albumID +")";
+                String query2 = descriptionTextArea.getText() + "'," + userID +"," +  ratingChoiceBox.getValue() + "," +albumID +")";
                 String finalQuery = query+query2;
 
                 Connection connectDB = DatabaseConnector.getConnection();
@@ -65,6 +63,8 @@ public class AddReviewStageController implements Initializable {
                     statement.executeUpdate(finalQuery);
                     errorLabel.setText("");
                     infoLabel.setText("Review has been updated successfully!");
+                    Stage stage = (Stage) cancelButton.getScene().getWindow();
+                    stage.close();
                 }catch (Exception ex) {
                     ex.printStackTrace();
                     ex.getCause();
