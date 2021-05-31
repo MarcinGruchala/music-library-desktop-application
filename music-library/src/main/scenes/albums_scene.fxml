@@ -22,10 +22,9 @@
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <TableView fx:id="tvAlbums" layoutX="46.0" layoutY="60.0" prefHeight="240.0" prefWidth="299.0" style="-fx-background-color: #e96151;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <columns>
-               <TableColumn fx:id="colAlbumTitle" prefWidth="100" text="Album Title" />
-               <TableColumn fx:id="colPublicationDate" prefWidth="100" text="Publication Date" />
-               <TableColumn fx:id="colPerformer" prefWidth="100" text="Performer" />
-               <TableColumn prefWidth="100" text="Length" />
+               <TableColumn fx:id="colAlbumTitle" prefWidth="150" text="Album Title" />
+               <TableColumn fx:id="colPublicationDate" prefWidth="125" text="Publication Date" />
+               <TableColumn fx:id="colPerformer" prefWidth="150" text="Performer" />
                <TableColumn fx:id="colReview" prefWidth="100" text="Review" />
             </columns>
          </TableView>
