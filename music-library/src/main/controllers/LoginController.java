@@ -115,7 +115,7 @@ public class LoginController implements Initializable {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../scenes/albums_scene.fxml")));
             Stage registerStage = new Stage();
             registerStage.setTitle("Music library");
-            registerStage.setScene(new Scene(root, 637, 492));
+            registerStage.setScene(new Scene(root, 800, 480));
             registerStage.show();
         }catch (Exception ex){
             ex.printStackTrace();
