@@ -2,13 +2,13 @@ package main.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -17,9 +17,11 @@ import main.model.DatabaseConnector;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -27,16 +29,19 @@ public class MainController implements Initializable {
     Stage addAlbumStage = new Stage();
     Stage albumDetailsStage =  new Stage();
 
+    @FXML private Label userName;
     @FXML private TableView<Album> tvAlbums;
     @FXML private TableColumn<Album,String> colAlbumTitle;
     @FXML private TableColumn<Album, Date> colPublicationDate;
     @FXML private TableColumn<Album, String> colPerformer;
     @FXML private TableColumn<Album, Integer> colReview;
 
+    static public String userNickName = "";
+
     @Override
     public void initialize(URL url, ResourceBundle rb){
         showAlbums();
-
+        setUserName();
         tvAlbums.setRowFactory( tv -> {
             TableRow<Album> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -98,7 +103,40 @@ public class MainController implements Initializable {
         AddAlbumStageController.addAlbumStage = addAlbumStage;
     }
 
-    public void addReview() {
+    public void addReview() throws IOException {
+        try{
+            AddReviewStageController.albumID = tvAlbums.getSelectionModel().getSelectedItem().getId();
+            AddReviewStageController.userID = 1;
+
+            String query = "SELECT ACCOUNTID FROM USER_ACCOUNTS WHERE USERNAME='" + userNickName + "'";
+            Connection connectDB = DatabaseConnector.getConnection();
+            try {
+                Statement statement = connectDB.createStatement();
+                ResultSet queryResult = statement.executeQuery(query);
+                while (queryResult.next()) {
+                    Integer accountID = queryResult.getInt(1);
+                    AddReviewStageController.userID = accountID;
+                }
+            }catch (Exception ex) {
+                ex.printStackTrace();
+                ex.getCause();
+            }
+
+
+            //System.out.println("albumID =" + AddReviewStageController.albumID + "  userID=" + AddReviewStageController.userID);
+
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../scenes/add_review_stage.fxml")));
+            Stage reviewStage = new Stage();
+            reviewStage.setTitle("Music library");
+            reviewStage.setScene(new Scene(root, 560, 350));
+            reviewStage.show();
+        }catch (Exception ex){
+            ex.printStackTrace();
+            ex.getCause();
+        }
+    }
+
+    public void showReviews(ActionEvent actionEvent) {
     }
 
     public void deleteAlbum() {
@@ -115,4 +153,25 @@ public class MainController implements Initializable {
         albumDetailsStage.show();
         AlbumDetailsStageController.stage = albumDetailsStage;
     }
+    public void setUserName(){
+        String query = "SELECT FIRSTNAME, LASTNAME FROM USER_ACCOUNTS WHERE USERNAME='" + userNickName + "'";
+        Connection connectDB = DatabaseConnector.getConnection();
+        try {
+            Statement statement = connectDB.createStatement();
+            ResultSet queryResult = statement.executeQuery(query);
+            while (queryResult.next()) {
+                String firstName = queryResult.getString(1);
+                String lastName = queryResult.getString(2);
+                String fullName = firstName + " "+ lastName;
+                userName.setText(fullName.toUpperCase(Locale.ROOT));
+            }
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            ex.getCause();
+        }
+
+
+    }
+
+
 }

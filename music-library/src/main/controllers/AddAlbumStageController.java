@@ -1,5 +1,6 @@
 package main.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -25,7 +26,6 @@ public class AddAlbumStageController {
         String title = tfTitle.getText();
         String date = tfPublicationDate.getText();
         String performer = tfPerformer.getText();
-        int review =  Integer.parseInt(tfReview.getText());
         String query = "INSERT INTO Albums VALUES(?,?,?,?,?)";
         try {
             PreparedStatement ps =  DatabaseConnector.getConnection().prepareStatement(query);
@@ -33,7 +33,7 @@ public class AddAlbumStageController {
             ps.setString(2,title);
             ps.setDate(3, Date.valueOf(date));
             ps.setString(4,performer);
-            ps.setInt(5,review);
+            ps.setInt(5,0);
             ps.execute();
             ps.close();
             addAlbumStage.close();
@@ -64,5 +64,8 @@ public class AddAlbumStageController {
             ex.printStackTrace();
             return -1;
         }
+    }
+
+    public void addButtonOnAction(ActionEvent actionEvent) {
     }
 }

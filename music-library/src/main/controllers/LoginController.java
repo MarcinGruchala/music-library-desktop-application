@@ -37,7 +37,6 @@ public class LoginController implements Initializable {
     private TextField enterPasswordField;
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         File brandingFile = new File("music-library/Images/gitara.jpg");
@@ -56,10 +55,14 @@ public class LoginController implements Initializable {
         {
             validateLogin();
         }else{
-            createAccountForm();
-            //loginMessageLabel.setText("Please enter username and password.");
+            loginMessageLabel.setText("Please enter username and password.");
         }
     }
+
+    public void registerButtonOnAction(ActionEvent actionEvent) {
+        createAccountForm();
+    }
+
     public void cancelButtonOnAction(ActionEvent event){
         Stage  stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
@@ -108,6 +111,7 @@ public class LoginController implements Initializable {
     public void mainControllerForm()
     {
         try{
+            MainController.userNickName = usernameTextField.getText();
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../scenes/albums_scene.fxml")));
             Stage registerStage = new Stage();
             registerStage.setTitle("Music library");
@@ -118,5 +122,6 @@ public class LoginController implements Initializable {
             ex.getCause();
         }
     }
+
 }
 
