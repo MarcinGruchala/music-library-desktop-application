@@ -47,35 +47,7 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb){
         showAlbums();
         setUserName();
-        FilteredList<Album> filteredData = new FilteredList<>(albumsList, b-> true);
-        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(album -> {
-                // if filter is empty, display all albums
-                if(newValue == null || newValue.isEmpty()){
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase(Locale.ROOT);
-                if(album.getTitle().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1)
-                {
-                    return true;
-                }else if (album.getPerformer().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1){
-                    return true;
-                }else if(album.getPublicationDate().toString().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1){
-                    return true;
-                }else if(album.getReview().toString().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                }else{
-                    return false;
-                }
-            });
-        });
-        //Wrap the filtered list in a sortedlist
-        SortedList<Album> sortedAlbums = new SortedList<>(filteredData);
-        //Bind the sorted list comparator to the TableView comparator.
-        sortedAlbums.comparatorProperty().bind(tvAlbums.comparatorProperty());
-        // Add sorted and filtered data to the table
-        tvAlbums.setItems(sortedAlbums);
-
+        searchListener();
 
         tvAlbums.setRowFactory( tv -> {
             TableRow<Album> row = new TableRow<>();
@@ -130,6 +102,7 @@ public class MainController implements Initializable {
         colPerformer.setCellValueFactory(new PropertyValueFactory<>("performer"));
         colReview.setCellValueFactory(new PropertyValueFactory<>("review"));
         tvAlbums.setItems(albumsList);
+        searchListener();
     }
 
     public void addAlbum() throws IOException {
@@ -215,5 +188,35 @@ public class MainController implements Initializable {
 
     }
 
+    public void searchListener(){
+        FilteredList<Album> filteredData = new FilteredList<>(albumsList, b-> true);
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(album -> {
+                // if filter is empty, display all albums
+                if(newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase(Locale.ROOT);
+                if(album.getTitle().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1)
+                {
+                    return true;
+                }else if (album.getPerformer().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1){
+                    return true;
+                }else if(album.getPublicationDate().toString().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1){
+                    return true;
+                }else if(album.getReview().toString().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                }else{
+                    return false;
+                }
+            });
+        });
+        //Wrap the filtered list in a sortedlist
+        SortedList<Album> sortedAlbums = new SortedList<>(filteredData);
+        //Bind the sorted list comparator to the TableView comparator.
+        sortedAlbums.comparatorProperty().bind(tvAlbums.comparatorProperty());
+        // Add sorted and filtered data to the table
+        tvAlbums.setItems(sortedAlbums);
+    }
 
 }
