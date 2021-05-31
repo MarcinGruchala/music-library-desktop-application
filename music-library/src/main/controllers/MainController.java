@@ -140,6 +140,17 @@ public class MainController implements Initializable {
     }
 
     public void deleteAlbum() {
+        Integer deletedAlbumId = tvAlbums.getSelectionModel().getSelectedItem().getId();
+        System.out.println("Delete Album: "+ deletedAlbumId);
+        String query = "DELETE FROM albums WHERE albumid = " + deletedAlbumId ;
+        Statement st;
+        try{
+            st = DatabaseConnector.getConnection().createStatement();
+            st.executeQuery(query);
+            showAlbums();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     public void refreshTable() {
