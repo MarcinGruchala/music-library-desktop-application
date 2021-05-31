@@ -6,43 +6,46 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.MainController">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <Button layoutX="19.0" layoutY="55.0" mnemonicParsing="false" onAction="#addAlbum" prefHeight="25.0"
-                 prefWidth="162.0" style="-fx-background-color: #e96151;" text="Add Album" textFill="WHITE"
-                 AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="20.0"/>
-         <Button layoutX="19.0" layoutY="52.0" mnemonicParsing="false" onAction="#addReview" prefHeight="25.0"
-                 prefWidth="162.0" style="-fx-background-color: #e96151;" text="Add Review" textFill="WHITE"
-                 AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="60.0"/>
-         <Button layoutX="19.0" layoutY="138.0" mnemonicParsing="false" onAction="#deleteAlbum" prefHeight="25.0"
-                 prefWidth="162.0" style="-fx-background-color: #e96151;" styleClass="#e96151" text="Delete Album"
-                 textFill="WHITE" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0"
-                 AnchorPane.topAnchor="100.0"/>
-         <Button layoutX="37.0" layoutY="301.0" mnemonicParsing="false" onAction="#refreshTable" prefHeight="25.0"
-                 prefWidth="162.0" style="-fx-background-color: #e96151;" text="Refresh Table" textFill="WHITE"
-                 AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0"/>
+         <Button layoutX="19.0" layoutY="55.0" mnemonicParsing="false" onAction="#addAlbum" prefHeight="25.0" prefWidth="162.0" style="-fx-background-color: #e96151;" text="Add Album" textFill="WHITE" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="20.0" />
+         <Button fx:id="addReviewButton" layoutX="19.0" layoutY="102.0" mnemonicParsing="false" onAction="#addReview" prefHeight="25.0" prefWidth="162.0" style="-fx-background-color: #e96151;" text="Add Review" textFill="WHITE" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="102.0" />
+         <Button layoutX="19.0" layoutY="61.0" mnemonicParsing="false" onAction="#deleteAlbum" prefHeight="25.0" prefWidth="162.0" style="-fx-background-color: #e96151;" styleClass="#e96151" text="Delete Album" textFill="WHITE" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="61.0" />
+         <Button layoutX="37.0" layoutY="301.0" mnemonicParsing="false" onAction="#refreshTable" prefHeight="25.0" prefWidth="162.0" style="-fx-background-color: #e96151;" text="Refresh Table" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" />
+         <Button fx:id="showReviewsButton" layoutX="19.0" layoutY="140.0" mnemonicParsing="false" onAction="#showReviews" prefHeight="25.0" prefWidth="162.0" style="-fx-background-color: #e96151;" text="Show Reviews" textFill="WHITE" />
       </AnchorPane>
    </left>
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <TableView fx:id="tvAlbums" layoutX="46.0" layoutY="60.0" prefHeight="240.0" prefWidth="299.0"
-                    style="-fx-background-color: #e96151;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
-                    AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <TableView fx:id="tvAlbums" layoutX="46.0" layoutY="60.0" prefHeight="240.0" prefWidth="299.0" style="-fx-background-color: #e96151;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <columns>
-               <TableColumn fx:id="colAlbumTitle" prefWidth="100" text="Album Title"/>
-               <TableColumn fx:id="colPublicationDate" prefWidth="100" text="Publication Date"/>
-               <TableColumn fx:id="colPerformer" prefWidth="100" text="Performer"/>
-               <TableColumn prefWidth="100" text="Length"/>
-               <TableColumn fx:id="colReview" prefWidth="100" text="Review"/>
+               <TableColumn fx:id="colAlbumTitle" prefWidth="150" text="Album Title" />
+               <TableColumn fx:id="colPublicationDate" prefWidth="125" text="Publication Date" />
+               <TableColumn fx:id="colPerformer" prefWidth="150" text="Performer" />
+               <TableColumn fx:id="colReview" prefWidth="100" text="Review" />
             </columns>
          </TableView>
       </AnchorPane>
    </center>
    <top>
-      <AnchorPane prefHeight="20.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <Label layoutX="490.0" layoutY="2.0" text="JAN KOWALSKI" AnchorPane.rightAnchor="40.0"/>
+      <AnchorPane prefHeight="23.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <AnchorPane layoutX="328.0" prefHeight="24.0" prefWidth="272.0" AnchorPane.rightAnchor="20.0">
+            <children>
+               <Label fx:id="userName" layoutY="3.0" prefHeight="19.0" prefWidth="121.0" text="JAN KOWALSKI" textFill="#fc1616" AnchorPane.leftAnchor="110.0">
+                  <font>
+                     <Font size="13.0" />
+                  </font>
+               </Label>
+               <Label fx:id="userName1" layoutX="126.0" layoutY="3.0" prefHeight="19.0" prefWidth="107.0" text="Zalogowano jako: " AnchorPane.leftAnchor="5.0">
+                  <font>
+                     <Font size="13.0" />
+                  </font>
+               </Label>
+            </children>
+         </AnchorPane>
       </AnchorPane>
    </top>
    <right>
