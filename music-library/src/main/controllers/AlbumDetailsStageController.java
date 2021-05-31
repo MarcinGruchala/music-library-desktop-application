@@ -116,17 +116,18 @@ public class AlbumDetailsStageController implements Initializable {
 
     public void deleteSong() {
         Integer deletedSongId = tvSongs.getSelectionModel().getSelectedItem().getId();
-        String query = "DELETE FROM songs WHERE songid = " + deletedSongId ;
+        String query = "DELETE FROM songs WHERE songid = " + deletedSongId;
         Statement st;
-        try{
+        try {
             st = DatabaseConnector.getConnection().createStatement();
             st.executeQuery(query);
             showSongs();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-      
-    public void searchListener(){
+    }
+
+    public void searchListener() {
         FilteredList<Song> filteredData = new FilteredList<>(songList, b-> true);
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(song -> {
