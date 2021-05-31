@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.model.Album;
+import main.model.Review;
 import main.model.DatabaseConnector;
 import main.model.Song;
 
@@ -27,40 +28,40 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class AlbumDetailsStageController implements Initializable {
-    static public Stage stage = new Stage();
-    Stage addSongStage = new Stage();
+public class ReviewController  implements Initializable {
 
     static public Integer albumId = 0;
-    public TableColumn<Song, String> colGenre;
-    public TableColumn<Song, String> colSongTitle;
-    public TableView<Song> tvSongs;
-    public TableColumn<Song, String> colAlbumTitle;
-    public TableColumn<Song, Integer> colNumberInAlbum;
-    public TableColumn<Song, Integer> colSongDuration;
+    static public Integer userID = 0;
+
+    public TableColumn<Review, String> colReview;
+    public TableColumn<Review, String> colAlbumTitle;
+    public TableView<Review> tvReviews;
+    public TableColumn<Review, String> colRating;
+    public TableColumn<Review, Integer> colUserName;
     public TextField searchTextField;
-    private ObservableList<Song> songList = FXCollections.observableArrayList();
+
+    private ObservableList<Review> reviewsList = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Album id "+albumId);
-        showSongs();
-        ///
-        FilteredList<Song> filteredData = new FilteredList<>(songList, b-> true);
+        showReviews();
+
+        FilteredList<Review> filteredData = new FilteredList<>(reviewsList, b-> true);
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(song -> {
+            filteredData.setPredicate(review -> {
                 // if filter is empty, display all albums
                 if(newValue == null || newValue.isEmpty()){
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase(Locale.ROOT);
-                if(song.getAlbumTitle().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1)
+                if(review.getReview().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1)
                 {
                     return true;
-                }else if (song.getTitle().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1){
+                }else if (review.getUserID().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1){
                     return true;
-                }else if(song.getGenre().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1){
+                }else if(review.getRating().toString().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1){
                     return true;
-                }else if(song.getNumberInAlbum().toString().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1) {
+                }else if(review.getAlbumID().toLowerCase(Locale.ROOT).indexOf(lowerCaseFilter) != -1) {
                     return true;
                 }else{
                     return false;
@@ -68,39 +69,48 @@ public class AlbumDetailsStageController implements Initializable {
             });
         });
         //Wrap the filtered list in a sortedlist
-        SortedList<Song> sortedSongs = new SortedList<>(filteredData);
+        SortedList<Review> sortedReviews = new SortedList<>(filteredData);
         //Bind the sorted list comparator to the TableView comparator.
-        sortedSongs.comparatorProperty().bind(tvSongs.comparatorProperty());
+        sortedReviews.comparatorProperty().bind(tvReviews.comparatorProperty());
         // Add sorted and filtered data to the table
-        tvSongs.setItems(sortedSongs);
+        tvReviews.setItems(sortedReviews);
+
     }
 
-    public  ObservableList<Song> getSongsList(){
-        ObservableList<Song> songsList = FXCollections.observableArrayList();
-        String query = "SELECT * FROM songs WHERE albumId =  " + albumId  + " " ;
+    public  ObservableList<Review> getReviewsList(){
+        ObservableList<Review> reviewList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM reviews WHERE albumId =  " + albumId  + " ";
+        System.out.println(query);
         Statement st;
         ResultSet rs;
         try {
             st = DatabaseConnector.getConnection().createStatement();
             rs = st.executeQuery(query);
-            Song song;
-            System.out.println(getAlbumTitle(albumId));
+            Review review;
             while (rs.next()){
-                song = new Song(
+                review = new Review(
                         rs.getInt(1),
                         rs.getString(2),
-                        getAlbumTitle(albumId),
+                        getUserName(rs.getInt(3)),
                         rs.getInt(4),
-                        rs.getString(5),
-                        rs.getInt(6)
+                        getAlbumTitle(albumId)
                 );
-                songsList.add(song);
+                reviewList.add(review);
             }
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        return songsList;
+        return reviewList;
 
+    }
+
+    private void showReviews(){
+        reviewsList = getReviewsList();
+        colReview.setCellValueFactory(new PropertyValueFactory<>("review"));
+        colAlbumTitle.setCellValueFactory(new PropertyValueFactory<>("albumID"));
+        colRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        colUserName.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        tvReviews.setItems(reviewsList);
     }
 
     private String getAlbumTitle(Integer albumId){
@@ -119,24 +129,20 @@ public class AlbumDetailsStageController implements Initializable {
         return albumTitle;
     }
 
-    private void showSongs(){
-        songList = getSongsList();
-        colSongTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colAlbumTitle.setCellValueFactory(new PropertyValueFactory<>("albumTitle"));
-        colNumberInAlbum.setCellValueFactory(new PropertyValueFactory<>("numberInAlbum"));
-        colGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        colSongDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
-        tvSongs.setItems(songList);
+    private String getUserName(Integer userID){
+        String userName = "";
+        String query = "SELECT username FROM user_accounts WHERE accountid =  " + userID  + " " ;
+        Statement st;
+        ResultSet rs;
+        try {
+            st = DatabaseConnector.getConnection().createStatement();
+            rs = st.executeQuery(query);
+            rs.next();
+            userName = rs.getString(1);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return userName;
     }
 
-    public void addSong() throws IOException {
-        Pane addAlbumPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../scenes/add_song_stage.fxml")));
-        addSongStage.setScene(new Scene(addAlbumPane,600,400));
-        addSongStage.show();
-        AddSongStageController.addSongStage = addSongStage;
-    }
-
-    public void refreshTable() {
-        showSongs();
-    }
 }

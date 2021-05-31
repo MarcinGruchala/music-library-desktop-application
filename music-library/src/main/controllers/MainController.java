@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.model.Album;
 import main.model.DatabaseConnector;
+import main.model.Review;
 
 import java.io.IOException;
 import java.net.URL;
@@ -171,7 +172,13 @@ public class MainController implements Initializable {
         }
     }
 
-    public void showReviews(ActionEvent actionEvent) {
+    public void showReviews(ActionEvent actionEvent) throws IOException {
+        ReviewController.albumId = tvAlbums.getSelectionModel().getSelectedItem().getId();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../scenes/reviews_scene.fxml")));
+        Stage reviewStage = new Stage();
+        reviewStage.setTitle("Music library");
+        reviewStage.setScene(new Scene(root, 800, 480));
+        reviewStage.show();
     }
 
     public void deleteAlbum() {
