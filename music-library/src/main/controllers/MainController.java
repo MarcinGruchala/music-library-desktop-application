@@ -2,9 +2,11 @@ package main.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -101,7 +103,40 @@ public class MainController implements Initializable {
         AddAlbumStageController.addAlbumStage = addAlbumStage;
     }
 
-    public void addReview() {
+    public void addReview() throws IOException {
+        try{
+            AddReviewStageController.albumID = tvAlbums.getSelectionModel().getSelectedItem().getId();
+            AddReviewStageController.userID = 1;
+
+            String query = "SELECT ACCOUNTID FROM USER_ACCOUNTS WHERE USERNAME='" + userNickName + "'";
+            Connection connectDB = DatabaseConnector.getConnection();
+            try {
+                Statement statement = connectDB.createStatement();
+                ResultSet queryResult = statement.executeQuery(query);
+                while (queryResult.next()) {
+                    Integer accountID = queryResult.getInt(1);
+                    AddReviewStageController.userID = accountID;
+                }
+            }catch (Exception ex) {
+                ex.printStackTrace();
+                ex.getCause();
+            }
+
+
+            //System.out.println("albumID =" + AddReviewStageController.albumID + "  userID=" + AddReviewStageController.userID);
+
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../scenes/add_review_stage.fxml")));
+            Stage reviewStage = new Stage();
+            reviewStage.setTitle("Music library");
+            reviewStage.setScene(new Scene(root, 560, 350));
+            reviewStage.show();
+        }catch (Exception ex){
+            ex.printStackTrace();
+            ex.getCause();
+        }
+    }
+
+    public void showReviews(ActionEvent actionEvent) {
     }
 
     public void deleteAlbum() {
@@ -137,4 +172,6 @@ public class MainController implements Initializable {
 
 
     }
+
+
 }

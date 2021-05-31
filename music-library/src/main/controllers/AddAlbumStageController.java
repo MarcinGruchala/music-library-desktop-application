@@ -1,5 +1,6 @@
 package main.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -64,5 +65,8 @@ public class AddAlbumStageController {
             ex.printStackTrace();
             return -1;
         }
+    }
+
+    public void addButtonOnAction(ActionEvent actionEvent) {
     }
 }
