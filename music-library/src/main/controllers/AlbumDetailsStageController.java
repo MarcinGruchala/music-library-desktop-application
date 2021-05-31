@@ -105,4 +105,17 @@ public class AlbumDetailsStageController implements Initializable {
     public void refreshTable() {
         showSongs();
     }
+
+    public void deleteSong() {
+        Integer deletedSongId = tvSongs.getSelectionModel().getSelectedItem().getId();
+        String query = "DELETE FROM songs WHERE songid = " + deletedSongId ;
+        Statement st;
+        try{
+            st = DatabaseConnector.getConnection().createStatement();
+            st.executeQuery(query);
+            showSongs();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
 }
