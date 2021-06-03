@@ -1,15 +1,20 @@
 package main.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.model.Album;
 import main.model.DatabaseConnector;
 
+import javax.swing.text.StyledEditorKit;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class AddAlbumStageController {
 
@@ -36,11 +41,11 @@ public class AddAlbumStageController {
             ps.setInt(5,0);
             ps.execute();
             ps.close();
+            System.out.println(isPerformer());
             addAlbumStage.close();
         }catch (Exception ex){
             ex.printStackTrace();
         }
-
     }
 
     public void cancel() {
@@ -66,6 +71,25 @@ public class AddAlbumStageController {
         }
     }
 
-    public void addButtonOnAction(ActionEvent actionEvent) {
+    private Boolean isPerformer(){
+        String query = "SELECT bandId FROM bands WHERE bandname = '" + tfPerformer.getText() + "'";
+        Statement st;
+        ResultSet rs;
+        ArrayList<Integer> bandsId= new ArrayList<>();
+        try{
+            st = DatabaseConnector.getConnection().createStatement();
+            rs = st.executeQuery(query);
+            while (rs.next()){
+                bandsId.add(rs.getInt(1));
+            }
+            System.out.println("Bands: " + bandsId.size());
+            if (bandsId.size()!=0){
+                return true;
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return  false;
     }
 }
