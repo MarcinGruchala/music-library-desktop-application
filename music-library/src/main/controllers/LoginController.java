@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import main.model.DatabaseConnector;
 
+import javax.crypto.Mac;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -124,6 +125,10 @@ public class LoginController implements Initializable {
             ex.getCause();
         }
     }
-
+//    private Integer getUserId(){
+//        String query = "SELECT userid FROM USER_ACCOUNTS WHERE Username = '" + usernameTextField.getText() + "' AND password = '" + enterPasswordField.getText() +"'";
+//        Statement st;
+//        ResultSet rs;
+//    }
 }
 

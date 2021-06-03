@@ -13,6 +13,7 @@ import main.model.DatabaseConnector;
 
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
@@ -43,6 +44,7 @@ public class AddReviewStageController implements Initializable {
     }
 
     public void addButtonOnAction(ActionEvent actionEvent) {
+        Integer averageReview = getAverageReview();
         if(descriptionTextArea.getText().toString() == "")
         {
             errorLabel.setText("You must fill the Description box!");
@@ -54,7 +56,7 @@ public class AddReviewStageController implements Initializable {
             }else
             {
                 String query = "INSERT INTO reviews(reviewcontent,userid,rating,albumid) VALUES('";
-                String query2 = descriptionTextArea.getText() + "'," + userID +"," +  ratingChoiceBox.getValue() + "," +albumID +")";
+                String query2 = descriptionTextArea.getText() + "'," + userID +"," +  calculateSmartReview(averageReview,ratingChoiceBox.getValue()) + "," +albumID +")";
                 String finalQuery = query+query2;
 
                 Connection connectDB = DatabaseConnector.getConnection();
@@ -83,4 +85,44 @@ public class AddReviewStageController implements Initializable {
         list.addAll(1,2,3,4,5,6,7,8,9,10);
         ratingChoiceBox.getItems().addAll(list);
     }
+
+    private Integer getAverageReview(){
+        String query = "SELECT rating FROM reviews WHERE userid = "+ userID;
+        Statement st;
+        ResultSet rs;
+        try{
+            st = DatabaseConnector.getConnection().createStatement();
+            rs = st.executeQuery(query);
+            ArrayList<Integer> reviewScores = new ArrayList<>();
+            while (rs.next()){
+                reviewScores.add(rs.getInt(1));
+            }
+            Integer averageReview = 0;
+            for (Integer reviewScore: reviewScores) {
+                averageReview+=reviewScore;
+            }
+            averageReview = (int)Math.round(averageReview.doubleValue()/reviewScores.size());
+            return averageReview;
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+
+    private Integer calculateSmartReview(Integer averageReview, Integer newReview){
+        Integer scoreDifference = Math.abs(averageReview - newReview);
+        if (averageReview > newReview){
+            newReview =  newReview - scoreDifference/2;
+            if (newReview < 1){
+                newReview = 1;
+            }
+        }else {
+            newReview = newReview + scoreDifference/2;
+            if (newReview>10){
+                newReview = 10;
+            }
+        }
+        return newReview;
+    }
+
 }

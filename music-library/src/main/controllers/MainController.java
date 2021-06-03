@@ -41,6 +41,7 @@ public class MainController implements Initializable {
     @FXML private TableColumn<Album, Integer> colReview;
 
     static public String userNickName = "";
+    static public Integer userId = 0;
 
     private ObservableList<Album> albumsList = FXCollections.observableArrayList();
 //    private ObservableList<Album> list;
@@ -56,7 +57,6 @@ public class MainController implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Album rowData = row.getItem();
-                    System.out.println(rowData);
                     try {
                         openAlbumDetailsStage(rowData.getId());
                     } catch (IOException e) {
@@ -134,7 +134,6 @@ public class MainController implements Initializable {
             }
 
 
-            //System.out.println("albumID =" + AddReviewStageController.albumID + "  userID=" + AddReviewStageController.userID);
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../scenes/add_review_stage.fxml")));
             Stage reviewStage = new Stage();
@@ -194,17 +193,14 @@ public class MainController implements Initializable {
                 rs = st.executeQuery(query);
                 ArrayList<Integer> reviewScores = new ArrayList<>();
                 while (rs.next()){
-                    System.out.println(rs.getInt(1));
                     reviewScores.add(rs.getInt(1));
                 }
-                System.out.println(reviewScores);
                 if (reviewScores.size() != 0){
                     Integer finalReviewScore = 0;
                     for (Integer reviewScore: reviewScores) {
                         finalReviewScore+=reviewScore;
                     }
                     finalReviewScore =  finalReviewScore / reviewScores.size();
-                    System.out.println(album.getTitle() + "Final review" + finalReviewScore);
                     updateAlbumReview(album.getId(),finalReviewScore);
                 }
             }catch (Exception ex){

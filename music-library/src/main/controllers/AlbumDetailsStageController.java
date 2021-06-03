@@ -42,7 +42,6 @@ public class AlbumDetailsStageController implements Initializable {
     private ObservableList<Song> songList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Album id "+albumId);
         showSongs();
         searchListener();
     }
@@ -56,7 +55,6 @@ public class AlbumDetailsStageController implements Initializable {
             st = DatabaseConnector.getConnection().createStatement();
             rs = st.executeQuery(query);
             Song song;
-            System.out.println(getAlbumTitle(albumId));
             while (rs.next()){
                 song = new Song(
                         rs.getInt(1),
