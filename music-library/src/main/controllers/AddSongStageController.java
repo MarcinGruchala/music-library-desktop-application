@@ -54,10 +54,8 @@ public class AddSongStageController {
         try {
             st = DatabaseConnector.getConnection().createStatement();
             rs = st.executeQuery(query);
-            System.out.println(rs);
             rs.next();
             newId = rs.getInt(1);
-            System.out.println(newId+1);
             return newId+1;
         }catch (Exception ex){
             ex.printStackTrace();
