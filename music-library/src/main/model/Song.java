@@ -1,12 +1,15 @@
 package main.model;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+
 public class Song {
     private final Integer id;
     private final String title;
     private final String albumTitle;
     private final Integer numberInAlbum;
     private final String genre;
-    private final Integer duration;
+    private final String duration;
 
     public Song(Integer id, String title, String albumTitle, Integer numberInAlbum, String genre, Integer duration) {
         this.id = id;
@@ -14,7 +17,7 @@ public class Song {
         this.albumTitle = albumTitle;
         this.numberInAlbum = numberInAlbum;
         this.genre = genre;
-        this.duration = duration;
+        this.duration = new SimpleDateFormat("mm:ss").format( new Time(duration*1000));
     }
 
     public Integer getId() {
@@ -37,7 +40,7 @@ public class Song {
         return genre;
     }
 
-    public Integer getDuration() {
+    public String getDuration() {
         return duration;
     }
 
